@@ -1,0 +1,145 @@
+{% extends 'header.html' %}
+{% block content %}
+
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<p>
+  <div class="row">
+    <div class="col-sm" style="margin:5px 0px 0px 5px; padding-right:0px;">
+      <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body" style="padding-bottom: 115px; padding-top: 115px;">
+            <b> (a) </b> Nº do Edital - Informar o número do edital do processo licitatório.<br>
+            <b> (b) </b> Data do Edital - Data de publicação nos meios de informações devidos (exemplo: Diário Oficial, Jornais de grande circulação).<br>
+            <b> (c) </b> Nº do Processo - Número do Processo interno do órgão.<br>
+            <b> (d) </b> Objeto - Descrição da licitação.<br>
+            <b> (e) </b> Tipo - Tipo do processo licitatório, conforme previsto na Lei n° 8666/93, Lei n°10520/2002, Decreto n° 5450/2005 e demais normas pertinentes.<br>
+            <b> (f) </b> Modalidade - Modalidade da licitação, conforme previsto na Lei n° 8666/93, Lei n°10520/2002, Decreto n° 5450/2005 e demais normas pertinentes.<br>
+            <b> (g) </b> Situação - Situação do andamento do processo licitatório (exemplo: em andamento, cancelado, concluído).<br>
+            <b> (h) </b> Resultado - Nome da empresa vencedora. Caso o processo licitatório esteja em andamento, preencher o campo com o termo “aguardando”.<br>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-4" style="margin-top:4px; margin-bottom:1px;">
+        <div class="card" >
+          <div class="card-body">
+          <style type="text/css">
+              h3{text-align: center; font-size:28px;}
+          </style>
+          <h3>Licitações - Anos {{Ano-1}} e {{Ano}}</h3>
+          <canvas id="chart" width="700" height="477"></canvas>   
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+          var anoatual = JSON.parse('{{lista_ano_atual}}');
+          var anoanterior = JSON.parse('{{lista_ano_anterior}}');
+          var chartOne = {
+            type: 'bar',
+            data: {
+              labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+              fontSize: "30",
+              datasets: [
+                {
+                  label: 'Ano Anterior',
+                  fontSize: "18",
+                  backgroundColor: "#a91a27",
+                  data: anoanterior,
+                  fill: false,
+                },
+                {
+                  label: 'Ano Atual',
+                  fontSize: "18",
+                  backgroundColor: "#1e325c",
+                  data: anoatual,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              tooltips: {
+                mode: 'nearest',
+                interesect: true,
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Mês',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Quantidade',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+              },
+            },
+          };
+          var ctxOne = document.getElementById('chart').getContext('2d');
+          new Chart(ctxOne, chartOne);
+        </script>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei n° 8666/93; Lei n° 10520/2002; Lei Complementar nº101/2000, art. 48-A, I, e Lei nº 12.527, art. 8°, §1°, IV; Decreto n° 5450/2005; Resolução CNMP n° 86/2012, art. 5°, inciso II, alíneas “a” a “d”.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Atividade de Licitações e Contratos
+        </div>
+      </div>
+</p>
+
+{% endblock %}

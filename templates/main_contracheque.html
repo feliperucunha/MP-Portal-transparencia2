@@ -1,0 +1,62 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 28px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+          </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<div class="card">
+    <div class="card-body">
+        <b> 1. </b>  Remuneração do cargo efetivo - Vencimento, GAMPU, V.P.I, Adicionais de Qualificação, G.A.E e G.A.S, além de outras desta natureza.<br>
+        <b> 2. </b>  V.P.N.I., Adicional por tempo de serviço, quintos, décimos e vantagens decorrentes de sentença judicial ou extensão administrativa.<br>
+        <b> 3. </b>  Rubricas que representam a retribuição paga pelo exercício de função (servidor efetivo) ou remuneração de cargo em comissão (servidor sem vínculo ou requisitado).<br>
+        <b> 4. </b>  Parcelas da Gratificação Natalina (13º) pagas no mês corrente, ou no caso de vacância ou exoneração do servidor.<br>
+        <b> 5. </b>  Adicional correspondente a 1/3 (um terço) da remuneração, pago ao servidor por ocasião das férias.<br>
+        <b> 6. </b>  Valor equivalente ao da contribuição previdenciária, devido ao funcionário público que esteja em condição de aposentar-se, mas que optou por continuar em atividade (instituído pela Emenda Constitucional nº 41, de 16 de dezembro de 2003).<br>
+        <b> 7. </b>  Valor total (somatório) das remunerações temporárias ou eventuais.<br>
+        <b> 8. </b>  Valor total (somatório) das verbas indenizatórias.<br>
+        <b> 9. </b>  Total dos rendimentos brutos pagos no mês.<br>
+        <b> 10. </b>  Contribuição Previdenciária Oficial (Plano de Seguridade Social do Servidor Público e Regime Geral de Previdência Social).<br>
+        <b> 11. </b>  Imposto de Renda Retido na Fonte.<br>
+        <b> 12. </b>  Valor deduzido da remuneração básica bruta, quando esta ultrapassa o teto constitucional, nos termos da legislação correspondente.<br>
+        <b> 13. </b>  Total dos descontos efetuados no mês.<br>
+        <b> 14. </b>  Rendimento líquido após os descontos referidos nos itens anteriores.<br>
+        <br>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        Fonte da informação: Departamento Recursos Humanos
+    </div>
+  </div>
+
+{% endblock %}
+
+

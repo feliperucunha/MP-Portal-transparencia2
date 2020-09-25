@@ -1,0 +1,66 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 40%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+                <button type="button" class="btn btn-link">   </button>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-striped">
+    <table class="table table-hover">
+        <thead class="thead-light">
+        {{ tables | safe}}
+        </thead>
+    </table>
+</div>
+
+<div class="table table-striped">
+<table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                    <th>ID</th>
+                    <th>Ano</th>
+                    <th>Período</th>
+                    <th>Arquivo</th>
+                </tr>
+        </thead>
+            <tbody>
+                    {% for Pessoa in tab %}
+
+                <tr>
+                    <td>{{ Pessoa.index }}</td>
+                    <td>{{ Pessoa.Ano }}</td>
+                    <td>{{ Pessoa.Período }}</td>
+                    <td><a href="/static/arq_download/Anexos/{{ Pessoa.Arquivo }}"
+                            download={{ Pessoa.Arquivo}}>Download do Arquivo</a></td>
+                </tr>
+                    {% endfor %}
+
+            </tbody>
+        </table>
+{{ pagination.links }}
+</div>
+<div class="card">
+    <div class="card-body">
+       Fonte da informação: Departamento Financeiro e Comissão de Controle Interno
+    </div>
+  </div>
+  
+{% endblock %}

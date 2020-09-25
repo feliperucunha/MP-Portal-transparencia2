@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{titles}}</title>
+  <script src="{{ url_for('static', filename='jquery/jquery-3.5.0.min.js') }}" ></script>
+  <script src="{{ url_for('static', filename='jquery/jquery-3.5.0.slim.min.js') }}" ></script>
+  <script src="{{ url_for('static', filename='jquery/datatables.min.js') }}" ></script>
+  <script src="{{ url_for('static', filename='popper/popper.min.js') }}" ></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='jquery/datatables.min.css') }}">
+  <script src="{{ url_for('static', filename='bootstrap-4.3.1-dist/js/bootstrap.min.js') }}" ></script>
+
+  <style type="text/css">
+    ul.navbar, .navbar li, .navbar a{margin:0; padding:0; list-style:none; text-decoration:none;}
+    ul.navbar div.dropdown-menu{position:absolute; display:none;}
+    ul.navbar{float:left; padding:0 5px;}
+    .navbar li{float:left; width:auto; position:relative; text-align: center; font-weight: bold;}
+    .navbar a{display:block; line-height:22px; height:65px; float:left;}
+    .navbar li:hover > div.dropdown-menu{display:block; top:80px; left:0; padding:0 5px; width:328.5px;}
+    .navbar li:hover > div.dropdown-menu div:hover > div.dropdown-menu{display:block; left:10px; padding:0 5px; width:328.5px;}
+    .navbar div.dropdown-menu a{width:323px; height: 55px;}
+    .navbar li.nav-item a.nav-link{color:white; font-size:13px;}
+    .navbar li:hover > a{background:#d1727a;}
+    .dropdown-menu{background:white;}
+    .dropdown-menu a{color:#191970; font-size:15px;}
+  </style>
+
+</head>
+<body>
+   <!-- Navbar 1 -->
+   
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-center" style="background-color: #a91a27;">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="/static/img/MPPA.png" width="100" height="60" alt="" margin-left="2px">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <ul class="navbar-nav">
+          <li class="nav-item" style="padding: 29px 0px 0px;">
+            <a class="nav-link" href="{{ url_for('index') }}">Menu<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown" style="padding: 8px 0px 0px;">
+            <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Execução <br> Orçamentária <br> e Financeira
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- Submenu -->
+              <a class="dropdown-item" href="{{ url_for('orcamento.ReceitasProprias') }}" alt="Receitas Próprias" title="Receitas Próprias" style="padding: 15px 0px";>Receitas Próprias</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.FundosSaldosReceitas') }}" alt="Fundos: Saldos e Receitas" title="Fundos: Saldos e Receitas" style="padding: 15px 0px";>Fundos: Saldos e Receitas</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.DetalhamentoDespesas') }}" alt="Detalhamento das Despesas" title="Detalhamento das Despesas" style="padding: 15px 0px";>Detalhamento das Despesas</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.DespesaAcaoOrcamentaria') }}" alt="Despesas por Ação Orçamentária" title="Despesas por Ação Orçamentária" style="padding: 15px 0px";>Despesas por Ação Orçamentária</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.DespesaAcaoOrcamentaria') }}" alt="Empenhos e Pagamentos por Favorecido" title="Empenhos e Pagamentos por Favorecido" style="padding: 15px 0px";>Empenhos e Pagamentos por Favorecido</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.DespesasCartaoCorporativo') }}" alt="Despesas Com Cartão Corporativo e Suprimento de Fundo" title="Despesas Com Cartão Corporativo e Suprimento de Fundo" style="padding: 5px 0px";>Despesas Com Cartão Corporativo e <br> Suprimento de Fundos </br></a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.DespesasCartaoCorporativo') }}" alt="Diárias e Passagens" title="Diárias e Passagens" style="padding: 15px 0px";>Diárias e Passagens</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.OutrosBeneficios') }}" alt="Outros Benefícios" title="Outros Benefícios" style="padding: 15px 0px";>Outros Benefícios</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.RepassesPrevidenciarios') }}" alt="Repasses Previdenciários" title="Repasses Previdenciários" style="padding: 15px 0px";>Repasses Previdenciários</a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.LimiteGastosPessoas') }}" alt="Limite de Gastos Com Pessoas (Relatório de Gestão Fiscal)" title="Limite de Gastos Com Pessoas (Relatório de Gestão Fiscal)" style="padding: 5px 0px";>Limite de Gastos Com Pessoas <br> (Relatório de Gestão Fiscal) </br></a>
+              <a class="dropdown-item" href="{{ url_for('orcamento.PrestacaoContasAnual') }}" alt="Prestação de Contas Anual" title="Prestação de Contas Anual" style="padding: 15px 0px";>Prestação de Contas Anual</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="https://www2.mppa.mp.br/sistemas/transparencia/empenho_list.php"  target="_blank" alt="Pagamento de Fornecedores" title="Pagamento de Fornecedores" style="padding: 15px 0px";>Pagamento de Fornecedores</a>
+            </div>
+
+            <li class="nav-item dropdown" style="padding: 8px 0px 0px;">
+              <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Licitações, <br> Contratos <br> e Financeira
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!-- Submenu -->
+                <a class="dropdown-item" href="{{ url_for('licitacao.Licitacoes') }}" alt="Licitações" title="Licitações" style="padding: 15px 0px";>Licitações</a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.DispensasInexigibilidade') }}" alt="Dispensas e Inexigibilidades" title="Dispensas e Inexigibilidades" style="padding: 15px 0px";>Dispensas e Inexigibilidades</a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.Contrato') }}" alt="Contratos" title="Contratos" style="padding: 15px 0px";>Contratos</a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.TA_Contrato') }}" alt="Contratos (Termos Aditivos)" title="Contratos (Termos Aditivos)" style="padding: 15px 0px";>Contratos (Termos Aditivos)</a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.ContratoInstrumentoCongenere') }}" alt="Convênios e Instrumentos Congêneres" title="Convênios e Instrumentos Congêneres" style="padding: 15px 0px";>Convênios e Instrumentos Congêneres</a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.TA_ContratoInstrumentoCongenere') }}" alt="Convênios e Instrumentos Congêneres (Termos Aditivos)" title="Convênios e Instrumentos Congêneres (Termos Aditivos)" style="padding: 5px 0px";>Convênios e Instrumentos Congêneres <br> (Termos Aditivos) </br></a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.AtasRegistroPrecos') }}" alt="Atas de Registro de Preços Próprias e Aderidas" title="Atas de Registro de Preços Próprias e Aderidas" style="padding: 5px 0px";>Atas de Registro de Preços Próprias <br> e Aderidas </br></a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.TA_AtasRegistroPrecos') }}" alt="Atas de Registro de Preços (próprias e adesões) Termos Aditivos" title="Atas de Registro de Preços (próprias e adesões) Termos Aditivos" style="padding: 5px 0px";>Atas de Registro de Preços <br> (próprias e adesões) Termos Aditivos </br></a>
+                <a class="dropdown-item" href="{{ url_for('licitacao.PrestadoresServico') }}" alt="Prestadores de Serviços" title="Prestadores de Serviços" style="padding: 15px 0px";>Prestadores de Serviços</a>
+              </div>
+
+              <li class="nav-item dropdown" style="padding: 18px 0px 0px;">
+                <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Gestão de <br> Pessoas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <!-- Submenu -->
+
+                  <div class="nav-item dropdown dropright">
+                    <!-- Submenu 2º Nível -->
+                   <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Quadro de Membros</a>
+                   <div class="dropdown-menu" style="left:+102%">
+                     <a class="dropdown-item" href="{{ url_for('gestao_pessoas.MembrosAtivos') }}" alt="Membros Ativos" title="Membros Ativos" style="padding: 15px 0px">Membros Ativos</a>
+                     <a class="dropdown-item" href="{{ url_for('gestao_pessoas.MembrosInativos') }}" alt="Membros Inativos" title="Membros Inativos" style="padding: 15px 0px">Membros Inativos</a>
+                   </div>
+                 </div>
+
+                 <div class="nav-item dropdown dropright">
+                  <!-- Submenu 2º Nível -->
+                 <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Quadro de Servidores</a>
+                 <div class="dropdown-menu" style="left:+102%; top:55px;">
+                   <a class="dropdown-item" href="{{ url_for('gestao_pessoas.ServidoresAtivos') }}" alt="Servidores Ativos" title="Servidores Ativos" style="padding: 15px 0px">Servidores Ativos</a>
+                   <a class="dropdown-item" href="{{ url_for('gestao_pessoas.ServidoresInativos') }}" alt="Servidores Inativos" title="Servidores Inativos" style="padding: 15px 0px">Servidores Inativos</a>
+                 </div>
+               </div>
+
+               <a class="dropdown-item" href="{{ url_for('gestao_pessoas.Pensionistas') }}" style="padding: 15px 0px";>Pensionistas</a>
+
+               <div class="nav-item dropdown dropright">
+                <!-- Submenu 2º Nível -->
+               <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Servidores Cedidos</a>
+               <div class="dropdown-menu" style="left:+102%; top:165px;">
+                 <a class="dropdown-item" href="{{ url_for('gestao_pessoas.CedidosParaMP') }}" alt="Servidores Cedidos Para o Ministério Público" title="Servidores Cedidos Para o Ministério Público" style="padding: 15px 0px">Para o Ministério Público</a>
+                 <a class="dropdown-item" href="{{ url_for('gestao_pessoas.CedidosPeloMP') }}" alt="Servidores Cedidos Pelo Ministério Público" title="Servidores Cedidos Pelo Ministério Público" style="padding: 15px 0px">Pelo Ministério Público</a>
+               </div>
+             </div>
+
+             <div class="nav-item dropdown dropright">
+              <!-- Submenu 2º Nível -->
+             <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 5px 0px">Membros/Servidores com Funções <br> Gratificadas ou Cargos em Comissão</a>
+             <div class="dropdown-menu" style="left:+102%; top:220px;">
+               <a class="dropdown-item" href="{{ url_for('gestao_pessoas.MembroFuncaoGratificada') }}" alt="Membros com Funções" title="Membros com Funções" style="padding: 15px 0px">Membros</a>
+               <a class="dropdown-item" href="{{ url_for('gestao_pessoas.ServidorFuncaoGratificada') }}" alt="Servidores com Funções" title="Servidores com Funções" style="padding: 15px 0px">Servidores</a>
+             </div>
+           </div>
+
+           <a class="dropdown-item" href="{{ url_for('gestao_pessoas.Estagiarios') }}" alt="Estagiários" title="Estagiários" style="padding: 15px 0px";>Estagiários</a>
+           <a class="dropdown-item" href="{{ url_for('gestao_pessoas.PlanoCarreira') }}" alt="Plano de Carreira" title="Plano de Carreira" style="padding: 15px 0px";>Plano de Carreira</a>
+
+           <div class="nav-item dropdown dropright">
+            <!-- Submenu 2º Nível -->
+           <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Estrutura Remuneratória</a>
+           <div class="dropdown-menu" style="left:+102%; top:385px;">
+             <a class="dropdown-item" href="{{ url_for('gestao_pessoas.EstRemuneratoriaCargoFuncaoMembro') }}" alt="Estrutura Remuneratória Membros" title="Estrutura Remuneratória Membros" style="padding: 15px 0px">Membros</a>
+             <a class="dropdown-item" href="{{ url_for('gestao_pessoas.RemuneracaoVencimentoCargoFuncaoServidores') }}" alt="Estrutura Remuneratória Servidores" title="Estrutura Remuneratória Servidores" style="padding: 15px 0px">Servidores</a>
+           </div>
+         </div>
+
+         <div class="nav-item dropdown dropright">
+          <!-- Submenu 2º Nível -->
+         <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Cargos Vagos e Ocupados</a>
+         <div class="dropdown-menu" style="left:+102%; top:440px;">
+           <a class="dropdown-item" href="{{ url_for('gestao_pessoas.CargoVagosOcupadosMembros') }}" alt="Cargos Vagos e Ocupados por Membros" title="Cargos Vagos e Ocupados por Membros" style="padding: 15px 0px">Membros</a>
+           <a class="dropdown-item" href="{{ url_for('gestao_pessoas.CargoVagosOcupadosServidores') }}" alt="Cargos Vagos e Ocupados por Servidores" title="Cargos Vagos e Ocupados por Servidores" style="padding: 15px 0px">Servidores</a>
+         </div>
+       </div>
+
+       <a class="dropdown-item" href="{{ url_for('gestao_pessoas.FuncoesVagasOcupadas') }}" style="padding: 15px 0px";>Funções Vagas e Ocupadas</a>
+
+       <div class="nav-item dropdown dropright">
+        <!-- Submenu 2º Nível -->
+       <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Provimento</a>
+       <div class="dropdown-menu" style="left:+102%; top:550px;">
+         <a class="dropdown-item" href="{{ url_for('gestao_pessoas.ProvimentoMembros') }}" alt="Provimento Membros" title="Provimento Membros" style="padding: 15px 0px">Membros</a>
+         <a class="dropdown-item" href="{{ url_for('gestao_pessoas.ProvimentoServidores') }}" alt="Provimento Servidores" title="Provimento Servidores" style="padding: 15px 0px">Servidores</a>
+       </div>
+     </div>
+
+     <div class="nav-item dropdown dropright">
+      <!-- Submenu 2º Nível -->
+     <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Vacâncias</a>
+     <div class="dropdown-menu" style="left:+102%; top:605px;">
+       <a class="dropdown-item" href="{{ url_for('gestao_pessoas.VacanciaMembros') }}" alt="Vacâncias Membros" title="Vacâncias Membros" style="padding: 15px 0px">Membros</a>
+       <a class="dropdown-item" href="{{ url_for('gestao_pessoas.VacanciaServidores') }}" alt="Vacâncias Servidores" title="Vacâncias Servidores" style="padding: 15px 0px">Servidores</a>
+     </div>
+   </div>
+
+                </div>
+
+                <li class="nav-item dropdown" style="padding: 18px 0px 0px;">
+                  <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Planejamento <br> Estratégico
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!-- Submenu -->
+
+                    <div class="nav-item dropdown dropright">
+                       <!-- Submenu 2º Nível -->
+                      <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 5px 0px">Finalidades e Objetivos Institucionais e <br> Estratégicos/Metas/Indicadores/Resultados</a>
+                      <div class="dropdown-menu" style="left:+102%">
+                        <a class="dropdown-item" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" alt="Mapa Estratégico" title="Mapa Estratégico" style="padding: 15px 0px">Mapa Estratégico</a>
+                        <a class="dropdown-item" href="{{ url_for('planejamento.QuadroDemonstrativo') }}" alt="Quadro Demonstrativo" title="Quadro Demonstrativo" style="padding: 15px 0px">Quadro Demonstrativo</a>
+                        <a class="dropdown-item" href="{{ url_for('planejamento.ResultadosAlcancados') }}" alt="Resultados Alcançados" title="Resultados Alcançados" style="padding: 15px 0px">Resultados Alcançados</a>
+                      </div>
+                    </div>
+
+                    <div class="nav-item dropdown dropright">
+                      <!-- Submenu 2º Nível -->
+                      <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 5px 0px">Dados Gerais de acompanhamento de <br> programas, ações, projetos e obras</a>
+                      <div class="dropdown-menu" style="left:+102%; top:55px;">
+                        <a class="dropdown-item" href="{{ url_for('planejamento.Projetos_MPPA') }}" alt="Projetos do MPPA Cadastrados no Banco Nacional de Projetos/CNMP" title="Projetos do MPPA Cadastrados no Banco Nacional de Projetos/CNMP" style="padding: 5px 0px">Projetos do MPPA Cadastrados no <br> Banco Nacional de Projetos/CNMP</a>
+                        <a class="dropdown-item" href="{{ url_for('planejamento.PlanosAtuacao') }}" alt="Planos de Atuação" title="Planos de Atuação" style="padding: 15px 0px">Planos de Atuação</a>
+                        <a class="dropdown-item" href="{{ url_for('planejamento.Obras') }}" alt="Obras" title="Obras" style="padding: 15px 0px">Obras</a>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <li class="nav-item dropdown" style="padding: 29px 0px 0px;">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('contato.RegistroCompetencias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Contato
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <!-- Submenu -->
+                      <a class="dropdown-item" href="{{ url_for('contato.RegistroCompetencias') }}" alt="Registros das Competências (Atuação das áreas meio e fim)" title="Registros das Competências (Atuação das áreas meio e fim)" style="padding: 5px 0px";>Registros das Competências <br> (Atuação das áreas meio e fim) </br></a>
+                      <a class="dropdown-item" href="{{ url_for('contato.EstruturaOrganizacional') }}" alt="Estrutura Organizacional" title="Estrutura Organizacional" style="padding: 15px 0px";>Estrutura Organizacional</a>
+                      <a class="dropdown-item" href="{{ url_for('contato.UnidadesEnderecosTelefones') }}" alt="Endereço, Telefone e Horário de Atendimento das unidades das áreas meio e fim" title="Endereço, Telefone e Horário de Atendimento das unidades das áreas meio e fim" style="padding: 5px 0px";>Endereço, Telefone e Horário de Atendimento <br> das unidades das áreas meio e fim </br></a>
+                      <a class="dropdown-item" href="{{ url_for('contato.Email_Membros') }}" alt="E-mail funcional dos membros" title="E-mail funcional dos membros" style="padding: 15px 0px";>E-mail funcional dos membros</a>
+                    </div>
+            
+                    <li class="nav-item dropdown" style="padding: 29px 0px 0px;">
+                      <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Contracheque
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- Submenu -->
+
+                        <div class="nav-item dropdown dropright">
+                          <!-- Submenu 2º Nível -->
+                         <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Remuneração de Todos os Membros</a>
+                         <div class="dropdown-menu" style="left:+102%">
+                           <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoMembroAtivo') }}" alt="Remuneração de Todos os Membros Ativos" title="Remuneração de Todos os Membros Ativos" style="padding: 15px 0px">Ativo</a>
+                           <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoMembroInativo') }}" alt="Remuneração de Todos os Membros Inativos" title="Remuneração de Todos os Membros Inativos" style="padding: 15px 0px">Inativo</a>
+                         </div>
+                       </div>
+
+                       <div class="nav-item dropdown dropright">
+                        <!-- Submenu 2º Nível -->
+                       <a class="dropdown-item dropdown-toggle" href="{{ url_for('planejamento.PlanejamentoEstrategico') }}" data-toggle="dropdown"  style="padding: 15px 0px">Remuneração de Todos os Servidores</a>
+                       <div class="dropdown-menu" style="left:+102%; top:55px;">
+                         <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoServidorAtivo') }}" alt="Remuneração de Todos os Servidores Ativos" title="Remuneração de Todos os Servidores Ativos" style="padding: 15px 0px">Ativo</a>
+                         <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoServidorInativo') }}" alt="Remuneração de Todos os Servidores Inativos" title="Remuneração de Todos os Servidores Inativos" style="padding: 15px 0px">Inativo</a>
+                       </div>
+                     </div>
+
+                        <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoPensionista') }}" alt="Remuneração de todos os Pensionistas" title="Remuneração de todos os Pensionistas" style="padding: 15px 0px";>Remuneração de todos os Pensionistas</a>
+                        <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoColaboradoresObrasManutencao') }}" alt="Remuneração dos Colaboradores Obras e Manutenção" title="Remuneração dos Colaboradores Obras e Manutenção" style="padding: 5px 0px";>Remuneração dos Colaboradores Obras e <br> Manutenção </br></a>
+                        <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoColaboradoresAdministracao') }}" alt="Remuneração dos Colaboradores Administração" title="Remuneração dos Colaboradores Administração" style="padding: 5px 0px";>Remuneração dos Colaboradores <br> Administração </br></a>
+                        <a class="dropdown-item" href="{{ url_for('contracheque.VerbasExerciciosAnteriores') }}" alt="Verbas Referentes a Exercícios Anteriores" title="Verbas Referentes a Exercícios Anteriores" style="padding: 15px 0px";>Verbas Referentes a Exercícios Anteriores</a>
+                        <a class="dropdown-item" href="{{ url_for('contracheque.VerbasExerciciosAnterioresResol_89') }}" alt="Verbas Referentes a Exercícios Anteriores-Art. 89" title="Verbas Referentes a Exercícios Anteriores-Art. 89" style="padding: 15px 0px";>Verbas Referentes a Exercícios Anteriores-Art. 89</a>
+                        <a class="dropdown-item" href="{{ url_for('contracheque.RemuneracaoColaboradoresAdministracao') }}" alt="Verbas Indenizatórias e Outras Remunerações Temporárias" title="Verbas Indenizatórias e Outras Remunerações Temporárias" style="padding: 5px 0px";>Verbas Indenizatórias e Outras Remunerações <br> Temporárias </br></a>
+                      </div>
+
+                      <li class="nav-item dropdown" style="padding: 29px 0px 0px;">
+                        <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Atividade Fim
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <!-- Submenu -->
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Termos de ajustamento de conduta firmados" title="Termos de ajustamento de conduta firmados" style="padding: 15px 0px";>Termos de ajustamento de conduta firmados</a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Estudos e Levantamentos Estatísticos da Atuação" title="Estudos e Levantamentos Estatísticos da Atuação" style="padding: 5px 0px";>Estudos e Levantamentos Estatísticos da  <br> Atuação </br></a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Relação de membros participantes de conselho e assemelhados externos a instituição" title="Relação de membros participantes de conselho e assemelhados externos a instituição" style="padding: 5px 0px";>Relação de membros participantes de <br> conselho e assemelhados externos a instituição </br></a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Recomendações Expedidas" title="Recomendações Expedidas" style="padding: 15px 0px";>Recomendações Expedidas</a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Audiências Públicas Realizadas" title="Audiências Públicas Realizadas" style="padding: 15px 0px";>Audiências Públicas Realizadas</a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Registro de procedimentos preparatórios com seu andamento no MP" title="Registro de procedimentos preparatórios com seu andamento no MP" style="padding: 5px 0px";>Registro de procedimentos preparatórios <br> com seu andamento no MP </br></a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Procedimentos de investigação criminal e seus andamentos no MP" title="Procedimentos de investigação criminal e seus andamentos no MP" style="padding: 5px 0px";>Procedimentos de investigação criminal <br> e seus andamentos no MP </br></a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Inquéritos Civis e seus andamentos no MP" title="Inquéritos Civis e seus andamentos no MP" style="padding: 15px 0px";>Inquéritos Civis e seus andamentos no MP</a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Inquéritos Policiais e seus andamentos no MP" title="Inquéritos Policiais e seus andamentos no MP" style="padding: 15px 0px";>Inquéritos Policiais e seus andamentos no MP</a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Dados e estatística da movimentação processual por unidade" title="Dados e estatística da movimentação processual por unidade" style="padding: 5px 0px";>Dados e estatística da movimentação <br> processual por unidade </br></a>
+                          <a class="dropdown-item" href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}" alt="Consulta Geral de Protocolos do MP" title="Consulta Geral de Protocolos do MP" style="padding: 15px 0px";>Consulta Geral de Protocolos do MP</a>
+                        </div>
+                        
+                        <li class="nav-item dropdown" style="padding: 8px 0px 0px;">
+                          <a class="nav-link dropdown-toggle" href="{{ url_for('orcamento.ReceitasProprias') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            SIC - Serviço <br> de Informação ao <br> Cidadão/Ouvidoria
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <!-- Submenu -->
+                            <a class="dropdown-item" href="{{ url_for('SIC.UnidadeAutoridadeResponsável') }}" alt="Unidade e autoridade responsável pelo SIC" title="Unidade e autoridade responsável pelo SIC" style="padding: 15px 0px";>Unidade e autoridade responsável pelo SIC</a>
+                            <a class="dropdown-item" href="{{ url_for('SIC.PublicacaoAnualSIC') }}" alt="Atendimento e Orientação ao público quanto ao acesso à informação" title="Atendimento e Orientação ao público quanto ao acesso à informação" style="padding: 5px 0px";>Atendimento e Orientação ao público <br> quanto ao acesso à informação </br></a>
+                            <a class="dropdown-item" href="https://www2.mppa.mp.br/pesquisasip/principal.html"  alt="Informação sobre a tramitação de documentos nas respectivas unidades" title="Informação sobre a tramitação de documentos nas respectivas unidades" target="_blank" style="padding: 5px 0px";>Informação sobre a tramitação de <br> documentos nas respectivas unidades </br></a>
+                            <a class="dropdown-item" href="https://www2.mppa.mp.br/sistemas/ouvidoria/sistema/externo/index.php"  alt="Protocolo de documentos e requerimentos de acesso à informação" title="Protocolo de documentos e requerimentos de acesso à informação" target="_blank" style="padding: 5px 0px";> Protocolo de documentos e <br> requerimentos de acesso à informação </br></a>
+                            <a class="dropdown-item" href="https://www2.mppa.mp.br/sistemas/ouvidoria/sistema/externo/index.php"  alt="Formulário eletrônico de pedido de informação" title="Formulário eletrônico de pedido de informação" target="_blank" style="padding: 5px 0px";> Formulário eletrônico de pedido de <br> informação </br></a>
+                          </div>
+                          
+                          <li class="nav-item dropdown" style="padding:  18px 0px 0px;">
+                            <a class="nav-link " href="{{ url_for('publicacao_anual_SIC.PublicacaoAnualSIC') }}" alt=" Publicação Anual do SIC" title=" Publicação Anual do SIC"  aria-haspopup="true" aria-expanded="false">
+                              Publicação <br> Anual do SIC
+                            </a>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+        </form>
+     
+  </nav>
+
+<div class="content">
+			{% block content %} {% endblock %}
+		</div>
+	</body>
+</html>

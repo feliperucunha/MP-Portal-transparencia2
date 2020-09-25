@@ -1,0 +1,77 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 100%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+                </div>
+                </div>
+          </div>
+            <input class="form-control" type="text" name="Dispensa"  placeholder="Dispensa /Inexigibilidade de Licitação">  <div class="input-group-append">
+            <input class="form-control" type="text" name="Contrato"  placeholder="Nº do Contrato">  <div class="input-group-append">
+            <input class="form-control" type="text" name="CNPJ_CPF"  placeholder="CNPJ/CPF">  <div class="input-group-append">
+                </div>
+                </div>
+                </div>
+            <input class="form-control" type="text" name="empenho"  placeholder="Nº do Empenho">  <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+                <button type="button" class="btn btn-link">   </button>
+            </div>
+              <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Dispensa / Inexigibilidade - Classificar a contratação como dispensa ou inexigibilidade.<br>
+            <b> (b) </b> Preceito Legal - Citar o artigo e inciso da lei de licitações que embasou a contratação por dispensa ou inexigibilidade (exemplo: “art. 24, inciso II” ou “art. 25, I”).<br>
+            <b> (c) </b> Número do empenho - Número ou código do empenho da dispensa ou inexigibilidade.<br>
+            <b> (d) </b> Data do empenho - Data de emissão do empenho em dia, mês e ano (exemplo: 12/04/2017).<br>
+            <!--<b> (e) </b> Objeto - Descrição detalhada dos bens ou serviços contratados mediante dispensa ou inexigibilidade. Descrição detalhada trata-se de informar o objeto ou serviço assim como se encontra no contrato, termo de referência ou empenho (exemplo: “Aquisição de 20 resmas de papel A4” ou “contratação de serviço de reforma de portão da promotoria x”).<br>-->
+            <b> (f) </b> Elemento e Subelemento da Despesa - Citar o código contábil e o nome do elemento e subelemento referentes a cada uma das contratações mediante dispensa e inexibilidade (exemplo: Código 3.3.90.30.16 - Material de consumo; subelemento Material de expediente).<br>
+            <b> (g) </b> Valor do empenho - Valor do objeto ou serviço adquirido conforme o empenho emitido.<br>
+            <b> (h) </b> Contratado(a) - Nome da pessoa jurídica ou física contratada.<br>
+            <b> (i) </b> CNPJ/CPF - CNPJ da pessoa jurídica contratada ou CPF da pessoa física contratada.<br>
+
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei n° 8666/93; Lei n° 10520/2002; Lei Complementar nº 101/2000, art. 48-A, I; Lei nº 12.527, art. 8°, §1°, IV; Decreto n° 5450/2005; Resolução CNMP n° 86/2012, art. 5°, inciso II, alíneas “a” a “d”; Resolução CNMP nº 89/2012, art. 7°, III.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Atividade de Licitações e Contratos
+        </div>
+      </div>
+
+{% endblock %}

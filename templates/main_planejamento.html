@@ -1,0 +1,33 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 40%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+             <a class="btn btn-danger" href="{{ url_for('planejamento.QuadroDemonstrativo') }}" role="button" style="border:1px solid #B22222; border-radius:4px;">Limpar Filtros</a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+{% endblock %}

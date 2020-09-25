@@ -1,0 +1,69 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+              {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+                </div>
+                </div>
+          </div>
+            <input class="form-control" type="text" name="N"  placeholder="Número do contrato">  <div class="input-group-append">
+                </div>
+            <div>
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+                <button type="button" class="btn btn-link">   </button>
+            </div>
+              <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Nº do Convênio - Informar o número do convênio principal. <br>
+            <b> (b) </b> Nº do Aditivo - Informar o número do Termo Aditivo. Caso o mesmo convênio tenha diversos aditivos, cada aditivo deverá estar demonstrado em linha diferente.<br>
+            <b> (c) </b> Objeto - Informar o objeto do Termo Aditivo (exemplo: prorrogação da vigência por mais 12 meses; reajuste do convênio).<br>
+            <b> (d) </b> Data de Publicação - Data de publicação nos meios de informações devidos (exemplo: Diário Oficial, jornais de grande circulação).<br>
+            <b> (e) </b> Valor Total - Informar o valor total do Termo Aditivo.<br>
+
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei Complementar nº 101/2000, art. 48-A, I, e Lei nº 12.527, art. 8°, §1°, IV; Resolução CNMP n° 86/2012, art. 5°, inciso II, alíneas “g” e “h”.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Atividade de Licitações e Contratos
+        </div>
+      </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+          </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<div class="card">
+    <div class="card-body">
+        <b> 1. </b> Número do processo com a devida caracterização do seu órgão de origem.<br>
+        <b> 2. </b> Denominação da verba objeto do processo ou justificativa do pagamento.<br>
+        <b> 3. </b> Classificar o processo de concessão da verba como natureza judicial ou administrativa.<br>
+        <b> 4. </b> Valor bruto recebido no mês.<br>
+        <b> 5. </b> Contribuição previdenciária oficial (Plano de Seguridade Social do Servidor Público e Regime Geral de Previdência Social).<br>
+        <b> 6. </b> Imposto de renda retido na fonte.<br>
+        <b> 7. </b> Total de descontos efetuados.<br>
+        <b> 8. </b> Valor líquido recebido.<br>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        Fonte da informação: Departamento Recursos Humanos
+    </div>
+  </div>
+
+{% endblock %}
+
+
