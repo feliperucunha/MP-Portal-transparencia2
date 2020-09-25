@@ -1,0 +1,152 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+             <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<p>
+  <div class="row">
+    <div class="col-sm" style="margin:5px 0px 0px 5px; padding-right:0px;">
+      <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Nº - Informar o Número da Ata.<br>
+            <b> (b) </b> Órgão Gerenciador da Ata - Informar o órgão gerenciador da ata, seja o próprio MP, outro MP ou órgão da administração pública federal, estadual ou municipal.<br>
+            <b> (c) </b> Objeto - Descrição do objeto da ata.<br>
+            <b> (d) </b> Data da Publicação - Data de publicação nos meios de informações devidos (exemplo: Diário Oficial, jornais de grande circulação).<br>
+            <b> (e) </b> Nº do Edital do Processo - Número do edital do processo licitatório relacionado.<br>
+            <b> (f) </b> Vigência (Início) - Data de início da vigência da ata no formato dd/mm/aaaa.<br>
+            <b> (f') </b> Vigência (Término) - Data de término da vigência da ata no formato dd/mm/aaaa.<br>
+            <b> (g) </b> Item Registrado - Descrição do(s) item(ns) a ser(em) registrado(s), conforme a licitação realizada.<br>
+            <b> (h) </b> Unidade de Medida - Unidade de medida do(s) item(ns) a ser(em) registrado(s)(exemplo: m, m², l, gr, kg, un).<br>
+            <b> (i) </b> Valor Unitário - Valor unitário do(s) item(ns) a ser(em) registrado(s).<br>
+            <b> (j) </b> Quantidade - Quantidade do(s) item(ns) a ser(em) registrado(s).<br>
+            <b> (k) </b> Valor Total do Item - Valor total de cada item, de acordo com a fórmula (i) x (j).<br>
+            <b> (l) </b> Valor Total do Contrato - Valor total do contrato com o somatório dos totais dos itens presentes no contrato.<br>
+            <b> (m) </b> Contratado - Nome da empresa ou da pessoa física registrada.<br>
+            <b> (n) </b> CNPJ/CPF - Número do CNPJ ou do CPF da empresa ou pessoa física registrada.<br>
+            <b> (o) </b> Sócios - Nome e CPF dos três principais integrantes de seu quadro societário, assim compreendidos aqueles que detenham maior parcela das cotas societárias ou o poder de gestão da sociedade.<br>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4" style="margin-top:4px; margin-bottom:1px;">
+        <div class="card" >
+          <div class="card-body">
+          <style type="text/css">
+              h3{text-align: center; font-size:24px;}
+          </style>
+          <h3>Atas de Registro de Preços Próprias e Aderidas - Anos {{Ano-1}} e {{Ano}}</h3>
+          <canvas id="chart" width="700" height="510"></canvas>   
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+          var anoatual = JSON.parse('{{lista_ano_atual}}');
+          var anoanterior = JSON.parse('{{lista_ano_anterior}}');
+          var chartOne = {
+            type: 'bar',
+            data: {
+              labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+              fontSize: "30",
+              datasets: [
+                {
+                  label: 'Ano Anterior',
+                  fontSize: "18",
+                  backgroundColor: "#a91a27",
+                  data: anoanterior,
+                  fill: false,
+                },
+                {
+                  label: 'Ano Atual',
+                  fontSize: "18",
+                  backgroundColor: "#1e325c",
+                  data: anoatual,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              tooltips: {
+                mode: 'nearest',
+                interesect: true,
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Mês',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Quantidade',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+              },
+            },
+          };
+          var ctxOne = document.getElementById('chart').getContext('2d');
+          new Chart(ctxOne, chartOne);
+        </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Resolução CNMP n° 86/2012, art. 5°, inciso II, alínea “k”.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+           Fonte da informação: Atividade de Licitações e Contratos
+        </div>
+      </div>
+</p>
+
+{% endblock %}

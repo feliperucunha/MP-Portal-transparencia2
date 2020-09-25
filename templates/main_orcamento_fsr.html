@@ -1,0 +1,147 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}} - Ano {{Ano}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+             <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+          </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<p>
+<div class="row">
+  <div class="col-sm" style="margin:5px 0px 0px 5px; padding-right:0px;">
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body" style="padding-bottom: 113px; padding-top: 113px;">
+            <b> (a) </b> Fundo - Declarar todos os fundos, contas ou valores que o órgão utilize, arrecade, guarde, gerencie, administre, responda ou assuma obrigações e que já não estejam detalhados nas outras tabelas de receitas e despesas deste Manual. Além do nome, para cada fundo ou conta deverá ser apresentada a lista das fontes de seus recursos e o fundamento legal ou normativo de sua instituição. Caso haja mais de uma fonte de recurso, cada uma deverá constar em linha diferente para evidenciar o montante recebido mensalmente por cada fonte.<br>
+            <b> (b) </b> Saldo do fundo em janeiro - Demonstrar o valor do saldo de cada fundo ou conta no início do exercício financeiro.<br>
+            <b> (c) </b> Valores Recebidos - Demonstrar o aporte de valores mensais para o fundo ou conta. Ressalte-se que caso o fundo ou conta tenha mais de uma fonte de recurso, cada uma deverá constar em linha diferente.<br>
+            <b> (d) </b> Saldo atual - Demonstração do saldo do fundo atualizado mensalmente após o acréscimo de aportes e decréscimos de despesas.<br>
+        </div>
+      </div>
+    </div>
+
+      <div class="col-sm-4" style="margin-top:4px; margin-bottom:1px;">
+        <div class="card" >
+          <div class="card-body">
+          <style type="text/css">
+              h3{text-align: center; font-size:24px;}
+          </style>
+          <h3>Fundos: Saldos e Receitas - Anos {{Ano-1}} e {{Ano}}</h3>
+          <canvas id="chart" width="700" height="477"></canvas>   
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+          var anoatual = JSON.parse('{{lista_ano_atual}}');
+          var anoanterior = JSON.parse('{{lista_ano_anterior}}');
+          var chartOne = {
+            type: 'bar',
+            data: {
+              labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+              fontSize: "30",
+              datasets: [
+                {
+                  label: 'Ano Anterior',
+                  fontSize: "18",
+                  backgroundColor: "#a91a27",
+                  data: anoanterior,
+                  fill: false,
+                },
+                {
+                  label: 'Ano Atual',
+                  fontSize: "18",
+                  backgroundColor: "#1e325c",
+                  data: anoatual,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              tooltips: {
+                mode: 'nearest',
+                interesect: true,
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                        return tooltipItem.yLabel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                  }
+                }
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Mês',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Valor',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+              },
+            },
+          };
+          var ctxOne = document.getElementById('chart').getContext('2d');
+          new Chart(ctxOne, chartOne);
+        </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-left: 5px;">
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei Complementar nº 101/2000, arts. 48 e 48-A; Lei nº4.320/64 arts 2°, 35 e 74; Lei nº 12.527/2011 arts. 2°, 3°, I, 7°,8°, §1°, II, III e V; Resolução CNMP nº 86/2012, art. 5º, inciso I, alínea “h”; Resolução CNMP nº 89/2012, art 5º, IV e V.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Assessoria de Planejamento
+        </div>
+      </div>
+    </div>
+</p>
+
+{% endblock %}

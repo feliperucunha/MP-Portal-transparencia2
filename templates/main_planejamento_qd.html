@@ -1,0 +1,63 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 40%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Objetivos - Citar todos os objetivos formalizados em planejamento estratégico e Plano Plurianual. São também denominados de objetivos institucionais, estratégicos, programas, ações, projetos e obras.<br>
+            <b> (b) </b> Indicador - Número ou índice que mede a realização do objetivo. Representa como se mede o objetivo (exemplo: unidades construídas, número de beneficiados, índice de aprovação, quantitativo de servidores apacitados, percentual de processos eletrônicos, percentual de erros, percentagem de áreas que aderiram à gestão de processos).<br>
+            <b> (c) </b> Meta - Estimativa de realização do objetivo para um determinado tempo. Demonstra quanto do objetivo deve ser alcançado em determinado tempo (exemplo: construir um prédio em 3 anos, implementar gestão de processos em 8 meses, capacitar 70% dos servidores em 2 anos).<br>
+            <b> (d) </b> Resultado alcançado até o momento - Valor ou índice de efetivo cumprimento do objetivo para data presente. Demostra o quanto do objetivo foi realmente alcançado até o momento atual.<br>
+            <b> (e) </b> Documento - Documento em que está formalizado o objetivo (exemplo: PPA, Planejamento Estratégico).<br>
+        
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei de Acesso à Informação (Lei nº 12.527/2011) art. 7º, V e VII, letra “a”, e art. 8º, §1º, V; Resolução CNMP nº 89/2012, art 7º, I e IV.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: : Comissão de Gestão do Planejamento Estratégico - COGEPE
+        </div>
+      </div>
+
+{% endblock %}

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>MPPA Portal Transparência</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.min.css') }}">
+
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #a91a27; padding: 0px;">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="/static/img/MPPA.png" width="130" height="70" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <style type="text/css">
+        div#navbarResponsive ul{
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #a91a27; 
+        }
+        div#navbarResponsive ul li{float: left;}
+        div#navbarResponsive ul li a{
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 25px;
+          font-weight: bold;
+          font-size:18px;
+          text-decoration: none;
+        }
+        div#navbarResponsive ul li a:hover{
+          background-color: #d1727a;
+        }
+
+        body {
+          font-family: system-ui;
+          background: #fff;
+          color: #464646;
+          text-align: left;
+          font-size: 16px;
+        }
+
+        .item-head span.color1 {
+          border-bottom: solid 3px #1e325c;
+        }
+
+        .item-head span.color2 {
+          border-bottom: solid 3px #939598;
+        }
+
+        .item-head span.color3 {
+          border-bottom: solid 3px #2d681d;
+        }
+
+        .item-head span.color4 {
+          border-bottom: solid 3px #f6a105;
+        }
+
+        .item-head span.color5 {
+          border-bottom: solid 3px #a71f31;
+        }
+
+        .item-head {
+          font-weight: bold;
+          padding: 0.5rem 0px;
+        }
+
+        .item-sup {
+          text-align: center;
+        }
+
+        .cont-inf {
+          display: flex;
+          min-height: 200px;
+        }
+
+        .blue-row {
+          background: linear-gradient(#1e325c,#d2d6df);
+        }
+
+        .gray-row {
+          background: linear-gradient(#939598,#e9eaea);
+        }
+
+        .green-row {
+          background: linear-gradient(#2d681d,#d5e1d2);
+        }
+
+        .yellow-row {
+          background: linear-gradient(#f6a105,#fdeccd);
+        }
+
+        .red-row {
+          background: linear-gradient(#a71f31,#edd3d6);
+        }
+
+        $pri: #a71f31;
+        $sec: #1e325c;
+
+        .container {
+          margin-top: 1rem;
+        }
+
+        .item-inf {
+          padding: 1rem 1.5rem; 
+          border-top: 1px #fff solid;
+          border-bottom: 1px #fff solid;
+          margin:10px;
+        }
+
+        .item-inf span {
+          font-size:0.8rem;
+        }
+
+
+        .middle {
+          border-right: 1px solid #fff;
+          border-left: 1px solid #fff;
+        }
+
+        .middleSingle {
+          margin: auto;
+          max-width: 31%;
+        }
+
+
+        @media screen and (min-width: 640px) {
+          .item-inf {
+            width: 33%;
+            border-radius: 10px;
+            min-height: 150px;
+          }
+        }
+
+        @media screen and (max-width: 640px) {
+          .cont-inf {
+            flex-direction: column;
+            margin: 16px;
+          }
+          
+          .item-inf {
+            border-radius: 10px;
+          }
+
+          .middleSingle {
+            max-width: 80%;
+            margin-top: 10px;
+          }
+        }
+
+        .intern__sidebar {
+          display: none;
+        }
+
+        .intern__content {
+          width: 100%;
+        }
+
+
+        .items {
+          border-radius: 5px;
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          grid-gap: 10px;
+          cursor: pointer;
+          border: 3px dotted #edd3d6;
+          transition: all 0.6s;
+          height: 100%;
+        }
+
+        .icon-wrapper,
+        .project-name {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .icon-wrapper i {
+          font-size: 3rem;
+          color: #a71f31;
+          transform: translateY(0px);
+          transition: all 0.6s;
+        }
+
+        .icon-wrapper {
+          align-self: end;
+        }
+
+        .project-name {
+          align-self: center;
+        }
+
+        .project-name p {
+          font-size: 0.9rem;
+          font-weight: bold;
+          letter-spacing: 2px;
+          color: #a71f31;
+          transform: translateY(0px);
+          transition: all 0.5s;
+        }
+
+        .project-name a {
+          color: #a71f31;
+        }
+
+        .project-name a:hover {
+          color: #a71f31;
+          text-decoration: none;
+        }
+
+        .items:hover {
+          border: 3px solid #a71f31;
+        }
+
+        .items:hover .project-name p {
+          transform: translateY(-10px);
+        }
+
+        .items:hover .icon-wrapper i {
+          transform: translateY(5px);
+        }
+
+      </style>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active" style="padding: 25px 0px;">
+            <a class="nav-link" href="#">Portal da Transparência
+              <span class="sr-only">(current)</span>
+            </a>
+          <li class="nav-item" style="padding: 35px 0px;">
+            <a class="nav-link" href="{{ url_for('planejamento.legislacao') }}">Legislação</a>
+          </li>
+          <li class="nav-item" style="padding: 35px 0px;">
+            <a class="nav-link" href="#">Videoaulas</a>
+          </li>
+          <li class="nav-item" style="padding: 25px 0px;">
+            <a class="nav-link" href="{{ url_for('planejamento.manual_portal') }}">Manual do Portal da Transparência</a>
+          </li>
+          <li class="nav-item" style="padding: 25px 0px;">
+            <a class="nav-link" href="#">Dúvidas Frequentes</a>
+          </li>
+        </ul>
+      </div>
+    <a class="navbar-brand" href="#"><img src="/static/img/logo_portal.png" width="140" height="70" alt=""></a>
+    </div>
+
+  </nav>
+
+  <!-- Page Content -->
+
+    <div class="container">
+      <div class="item-sup">
+        <div class="item-head"></div>
+        <div class="cont-inf">
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('orcamento.ReceitasProprias') }}"><i class="fa fa-line-chart"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('orcamento.ReceitasProprias') }}">Execução Orçamentária e Finaceira</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('licitacao.Licitacoes') }}"><i class="fa fa-handshake-o"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('licitacao.Licitacoes') }}">Licitações, Contratos e Convênios</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('gestao_pessoas.MembrosAtivos') }}"><i class="fa fa-users"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('gestao_pessoas.MembrosAtivos') }}">Gestão de Pessoas</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item-sup">
+        <div class="cont-inf">
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('planejamento.PlanejamentoEstrategico') }}"><i class="fa fa-bar-chart"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('planejamento.PlanejamentoEstrategico') }}">Planejamento Estratégico</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item-inf">
+             <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('contato.RegistroCompetencias') }}"><i class="fa fa-phone"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('contato.RegistroCompetencias') }}">Contato</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('contracheque.RemuneracaoMembroAtivo') }}"><i class="fa fa-file-text-o"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('contracheque.RemuneracaoMembroAtivo') }}">Contracheque</a></p>
+              </div>
+            </div> 
+        </div>
+      </div>
+      <div class="item-sup">
+        <div class="cont-inf">
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}"><i class="fa fa-share"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('atividade_fim.EstudoLevantamentoEstatistico') }}">Atividade Fim</a></p>
+              </div>
+            </div> 
+          </div>
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('SIC.UnidadeAutoridadeResponsável') }}"><i class="fa fa-info-circle"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('SIC.UnidadeAutoridadeResponsável') }}">SIC - Serviço de Informação ao Cidadão</a></p>
+              </div>
+            </div> 
+          </div>
+          <div class="item-inf">
+            <div class="items">
+              <div class="icon-wrapper">
+                <a href="{{ url_for('publicacao_anual_SIC.PublicacaoAnualSIC') }}"><i class="fa fa-calendar"></i></a>
+              </div>
+              <div class="project-name">
+                <p><a href="{{ url_for('publicacao_anual_SIC.PublicacaoAnualSIC') }}">Publicação Anual do SIC</a></p>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- /.row -->
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark" >
+    <div class="container" >
+      <p class="m-0 text-center text-white" >Rua João Diogo, 100 - Cidade Velha -- Belém/PA 66.015-160 | (91)4006-3400 | ouvidoria@mppa.mp.br</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

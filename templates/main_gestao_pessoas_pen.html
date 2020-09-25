@@ -1,0 +1,65 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Instituidor da Pensão - Informar nome do membro ou servidor falecido que deu origem ao pagamento de pensão por morte.<br>
+            <b> (b) </b> Cargo Efetivo - Detalhar o cargo efetivo do instituidor da pensão.<br>
+            <b> (c) </b> Pensionista - Informar o nome do beneficiário da pensão.<br>
+            <b> (d) </b> Ato/portaria n.- Número do ato/portaria de concessão da pensão, se houver.<br>
+            <b> (e) </b> Data publicação - Data da publicação na imprensa oficial do ato de concessão da pensão.<br>
+        
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Resolução CNMP n. 86/2012, art. 5º, inciso III, alínea “b”.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Departamento de Recursos Humanos
+        </div>
+      </div>
+
+{% endblock %}

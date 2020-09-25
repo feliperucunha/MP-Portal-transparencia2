@@ -1,0 +1,67 @@
+{% extends 'header.html' %}
+{% block content %}
+
+
+
+<div class="container">
+    <style type="text/css">
+      h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+     <!--Formulário-->
+     <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 60%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+                </div>
+           <input class="form-control" type="text" name="unidade"  placeholder="Nome  da Unidade" style="margin-left: 15px;"><div class="input-group-append">
+             <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+               <button type="button" class="btn btn-link">   </button>
+              </div>
+                <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+         </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Nome da unidade - Apresentar o nome das unidades das áreas meio e fim.<br>
+            <b> (b) </b> Característica do Imóvel - Descrever se o imóvel é próprio, cedido, alugado ou outros.<br>
+
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei de Acesso à Informação (Lei nº 12.527/2011), art. 8º, §1º, I;<br>
+               Resolução CNMP nº 89/2012, art. 7º, II; Resolução CNMP nº 74/2011, anexo I, item II.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+           Unidade responsável pelas informações: Adminstração
+        </div>
+      </div>
+</p>
+
+{% endblock %}

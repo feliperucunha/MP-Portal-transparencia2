@@ -1,0 +1,71 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body">
+            <b> (a) </b> Matrícula - Código funcional do servidor.<br>
+            <b> (b) </b> Nome - Nome completo do servidor.<br>
+            <b> (c) </b> Cargo de Origem - Nome do cargo efetivo no MP.<br>
+            <b> (d) </b> Função - Preencher com o tipo/código de função comissionada, cargo em comissão, função gratificada, ou outra de mesma natureza exercida pelo servidor no órgão de destino.<br>
+            <b> (e) </b> Lotação - Identificar a lotação do servidor.<br>
+            <b> (f) </b> Ato/Portaria nº - Número do ato/portaria de cessão.<br>
+            <b> (g) </b> Data publicação - Data da publicação na imprensa oficial do ato de cessão.<br>
+            <b> (h) </b> Órgão de Destino - Órgão da Administração direta ou indireta para o qual o servidor foi cedido.<br>
+            <b> (i) </b> Ônus - Informar com “sim”, caso o ônus seja do Ministério Público, e “não”, caso o ônus seja do Órgão de destino.<br>
+            <b> (j) </b> Prazo - Informar o prazo de cessão. Se não houver prazo, deve ser lançada a expressão “indeterminado”.<br>
+            <b> (k) </b> Total de Servidores cedidos pelo MP - Informar o número total de servidores cedidos pelo MP.<br>
+        
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Resolução CNMP nº 86/2012, art. 5º, inciso III, alínea “d”; Resolução CNMP nº 89/2012, art. 7º, inciso X.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+           Fonte da informação: Departamento de Recursos Humanos
+        </div>
+      </div>
+
+{% endblock %}

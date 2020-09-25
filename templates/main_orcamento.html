@@ -1,0 +1,143 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+      <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+        <div class="input-group">
+          {{ form.csrf_token }}
+          {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+          {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+           <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+            <button type="button" class="btn btn-link">   </button>
+        </div>
+        </div>
+          <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+      </div>
+  </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<p>
+<div class="row">
+  <div class="col-sm" style="margin:5px 0px 0px 5px; padding-right:0px;">
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body" style="padding-bottom: 88px; padding-top: 89px;">
+            <b> (a) </b> Objeto - Descrição do Tipo da Despesa, agrupados pelos Grupos de Despesa: Pessoal e Encargos Sociais, Outras Despesas Correntes, Investimentos e Inversões Financeiras.<br>
+            <b> (b) </b> Valores Previstos - Valores da lei orçamentária adicionados ou reduzidos de eventuais créditos adicionais.<br>
+            <b> (c) </b> Valores Pagos - Valores pagos no mês (Regime de Caixa). Caso algum valor tenha sido pago por meio de fundo ou outra conta, tal valor pago deve constar em linha abaixo da linha principal destinada aos valores pagos pela conta principal do órgão.<br>
+            <b> (d) </b> Total - Somatório dos valores dos meses do ano.<br>
+            <b> (e) </b> Outras despesas de Pessoal - Terceirização: Com base no art. 18, § 1º, da Lei Complementar nº 101/2000, os serviços terceirizados que realizam atividades descritas nos editais para membros ou servidores deverão fazer parte do cálculo para limite de pessoal.<br>
+            <b> (f) </b> Total Geral - Somatório dos valores contidos nas linhas: Pessoal e Encargos Sociais, Outras Despesas Correntes, Investimentos e Inversões Financeiras.<br>
+            <b> (g) </b> Fonte da Informação -  Assessoria de Planejamento.<br>
+        </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-4" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h3{text-align: center; font-size:23px;}
+      </style>
+      <h3>Detalhamento das Despesas - Anos {{Ano-1}} e {{Ano}}</h3>
+      <canvas id="chart" width="700" height="477"></canvas>   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var anoatual = JSON.parse('{{lista_ano_atual}}');
+      var anoanterior = JSON.parse('{{lista_ano_anterior}}');
+      var chartOne = {
+        type: 'bar',
+        data: {
+          labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+          fontSize: "30",
+          datasets: [
+            {
+              label: 'Ano Anterior',
+              fontSize: "18",
+              backgroundColor: "#a91a27",
+              data: anoanterior,
+              fill: false,
+            },
+            {
+              label: 'Ano Atual',
+              fontSize: "18",
+              backgroundColor: "#1e325c",
+              data: anoatual,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+            callbacks: {
+                  label: function(tooltipItem, data) {
+                        return tooltipItem.yLabel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                  }
+            }
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Mês',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Valor(Milhões)',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        },
+      };
+      var ctxOne = document.getElementById('chart').getContext('2d');
+      new Chart(ctxOne, chartOne);
+    </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="card" style="margin-left: 5px;">  
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei Complementar nº 101/2000 art. 18; Lei nº 12.527 art.8°, §1°, III; Lei nº 4.320/64, arts. 12 e 13; Resolução CNMP nº 86/2012, art. 5º, inciso I, alínea “b”; Resolução CNMP nº 74/2011, anexo I, item III; Portaria Conjunta STN/SOF nº 1, de 10 de dezembro de 2014.</p>
+          </blockquote>
+        </div>
+      </div>
+</p>
+{% endblock %}

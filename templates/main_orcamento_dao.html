@@ -1,0 +1,149 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<div class="container">
+    <style type="text/css">
+        h2{text-align: center; font-size: 30px;}
+    </style>
+    <h2><br>{{titles}}</br></h2>
+    <!--Formulário-->
+    <form method="POST" action="">
+      <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+        <div class="input-group">
+          {{ form.csrf_token }}
+          {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+          {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+           <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+            <button type="button" class="btn btn-link">   </button>
+        </div>
+        </div>
+          <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+        </div>
+      </div>
+  </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
+</div>
+{{ pagination.links }}
+
+<p>
+<div class="row">
+  <div class="col-sm" style="margin:5px 0px 0px 5px; padding-right:0px;">
+    <div class="card">
+        <style type="text/css">
+          div.card-body{text-align: justify;}
+        </style>
+        <div class="card-body" style="padding-bottom: 126px; padding-top: 127px;">
+            <b> (a) </b> Descrição da Ação - Descrição das ações orçamentárias de estrutura programática (atividades, projetos e operações especiais), subdivididas por grupo de natureza de despesa, conforme constar na lei orçamentária de cada unidade do Ministério Público. A tabela busca evidenciar qual o tipo de gasto por diferentes ações.<br>
+            <b> (b) </b> Autorizado - Valores da lei orçamentária adicionados ou reduzidos de eventuais créditos adicionais.<br>
+            <b> (c) </b> Empenhado - Valor total de empenhos realizados até o mês.<br>
+            <b> (d) </b> Liquidado - Total de valores liquidados até o mês.<br>
+            <b> (e) </b> Pago - Total de valores pagos até o mês.<br>
+            <b> (f) </b> Total - Somatório dos valores de cada uma das colunas (b) a (e).<br>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4" style="margin-top:4px; margin-bottom:1px;">
+      <div class="card" >
+        <div class="card-body">
+        <style type="text/css">
+            h3{text-align: center; font-size:24px;}
+        </style>
+        <h3>Totais de Despesas por Ação Orçamentária - Anos {{Ano-1}} e {{Ano}}</h3>
+        <canvas id="chart" width="700" height="477"></canvas>   
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+          var anoatual = JSON.parse('{{lista_ano_atual}}');
+          var anoanterior = JSON.parse('{{lista_ano_anterior}}');
+          var chartOne = {
+            type: 'bar',
+            data: {
+              labels: ["2019", "2020"],
+              fontSize: "30",
+              datasets: [
+                {
+                  label: 'Ano Atual',
+                  fontSize: "18",
+                  backgroundColor: "#1e325c",
+                  data: anoatual,
+                  fill: false,
+                },
+                {
+                  label: 'Ano Anterior',
+                  fontSize: "18",
+                  backgroundColor: "#a91a27",
+                  data: anoanterior,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              tooltips: {
+                mode: 'nearest',
+                interesect: true,
+                callbacks: {
+                      label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                      }
+                }
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Ano',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Valor',
+                      fontSize: "15"
+                    },
+                  },
+                ],
+              },
+            },
+          };
+          var ctxOne = document.getElementById('chart').getContext('2d');
+          new Chart(ctxOne, chartOne);
+        </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="card">
+        <div class="card-header" style="font-size:18px;">
+          <b>FUNDAMENTO LEGAL</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0" style="font-size:16px;">
+            <p>Lei Complementar nº 101/2000 art. 48, II; Lei nº 12.527/2011 art. 7°, VII, “a”, e art. 8º, §1°, III e V; Lei nº 4.320/64, arts. 12 e 13; Resolução CNMP nº 86/2012, art. 5º, inciso I, alínea “c”; Resolução CNMP nº 74/2011, anexo I, item III; Portaria Interministerial STN/SOF n° 163/2001 e posteriores alterações.</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          Fonte da informação: Assessoria de Planejamento
+        </div>
+      </div>
+
+</p>
+
+{% endblock %}
