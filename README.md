@@ -3,7 +3,7 @@
 - Por causa do peso, os arquivos json da pasta gestao_pessoas/json_files não estão presentes
 - Para iniciar o projeto execute o app.py (python3 app.py)
 - O trabalho é feito na branch dev e depois sofre o merge na master
-
+- lalalala
 ## Instalação de pacotes
 - Pacotes a serem instalados:
     - flask
