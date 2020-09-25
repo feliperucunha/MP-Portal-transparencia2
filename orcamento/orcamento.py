@@ -8,6 +8,8 @@ from flask_paginate import Pagination, get_page_parameter
 import matplotlib.pyplot as plt
 import pygal
 
+
+#tranalhar aqui
 orcamento_bp = Blueprint('orcamento', __name__)
 
 @orcamento_bp.route('/orcamento/ReceitasProprias', methods=('GET', 'POST'))
