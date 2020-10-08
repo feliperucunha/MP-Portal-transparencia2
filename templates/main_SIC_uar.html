@@ -3,21 +3,510 @@
 
 <div class="container">
     <style type="text/css">
-        h2{text-align: center; font-size: 30px;}
+        h2{text-align: center;}
     </style>
     <h2><br>{{titles}}</br></h2>
     <!--Formulário-->
-
-
     <div class="card">
         <div class="card-body">
-            <b> Ouvidor: Estevam Alves Sampaio Filho  (Procurador de Justiça) </b><br>
+            <b> Ouvidor: Antonio Eduardo Barleta de Almeida  (Procurador de Justiça) </b><br>
             <b> Endereço: </b> Rua João Diogo, n.º 84 - Cidade Velha - 66015-160.<br>
             <b> E-mail: </b> ouvidoria@mppa.mp.br<br>
             <b> Telefone: </b> (91) 4006-3654<br>
         </div>
       </div>
-
+    <!--Formulário-->
+    <form method="POST" action="">
+        <div class="input-group" style="padding: 30px; width: 50%; margin: 0 auto">
+          <div class="input-group">
+            {{ form.csrf_token }}
+            {{ form.mes(class_="custom-select")}}<div class="input-group-append">
+            {{ form.ano(class_="custom-select")}}<div class="input-group-append">
+             <button class="btn btn-primary" type="submit" style="margin-left: 15px; border:1px solid #191970; border-radius:4px;">Buscar</button>
+              <button type="button" class="btn btn-link">   </button>
+          </div>
+          </div>
+            <a><input class="btn btn-danger" type="reset" value="Limpar Filtros" onClick="limpa()" style="border:1px solid #B22222; border-radius:4px;"></a>
+          </div>
+        </div>
+    </form>
+</div>
+<!--Tabela-->
+{{ pagination.info }}
+{{ pagination.links }}
+<div class="table table-sm table-responsive table table-striped">
+    <table class="table table-hover">
+        {{ tables|safe }}
+    </table>
 </div>
 
+
+{{ pagination.links }}
+
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+      <h2> Ouvidoria em Movimento </h2>
+
+<div class="row">
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+      <h4> Manifestações por Categorias </h4>
+      <canvas id="chart_01" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var cat_quantidade = {{ lista_cat_quantidade | tojson }}
+      var categoria = {{ lista_categoria | tojson }}
+
+      var chartOne = {
+        type: 'bar',
+        data: {
+          labels: categoria,
+          fontSize: "30",
+          datasets: [
+            {
+              label: 'Categorias',
+              fontSize: "30",
+              backgroundColor: "#1e325c",
+              data: cat_quantidade,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Categoria',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        },
+      };
+      var ctxOne = document.getElementById('chart_01').getContext('2d');
+      new Chart(ctxOne, chartOne);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+
+</p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+    <h4> Manifestações por Meios de Acesso </h4>
+<canvas id="Chart_02"width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var ori_quantidade = {{ lista_ori_quantidade | tojson }}
+      var origem = {{ lista_origem | tojson }}
+var ctx = document.getElementById('Chart_02').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: origem,
+        datasets: [{
+            label: 'Meio de Acesso',
+            backgroundColor: "#a91a27",
+
+            data: ori_quantidade
+        }]
+    },
+    options: {
+             responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Meio de Acesso',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        }
+    }
+);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+</div>
+
+<div class="row">
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+    <h4> Situação das Notícias de Fato </h4>
+<canvas id="Chart_03" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var sta_quantidade = {{ lista_sta_quantidade | tojson }}
+      var Status = {{ lista_status | tojson }}
+var ctx = document.getElementById('Chart_03').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: Status,
+        datasets: [{
+            label: 'Status',
+            backgroundColor: ['#1e325c', '#687090', '#b2b5c6', '#d8d9e2', '#ffffff'],
+            borderColor:  "#1e325c",
+            data: sta_quantidade
+        }]
+    },
+    options: {}
+});
+</script>
+      </div>
+    </div>
+  </div>
+</p>
+
+
+
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+    <h4> Manifestações por Assunto </h4>
+<canvas id="Chart_04" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var ass_quantidade = {{ lista_ass_quantidade | tojson }}
+      var assunto = {{ lista_assunto | tojson }}
+var ctx = document.getElementById('Chart_04').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: assunto,
+        datasets: [{
+            label: 'Assunto',
+            backgroundColor: "#a91a27",
+            borderColor: 'rgb(255, 99, 132)',
+            data: ass_quantidade
+        }]
+    },
+    options: {
+             responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Assunto',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        }
+    }
+);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+</div>
+
+<div class="row">
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+      <h4> Manifestações por Munucípios </h4>
+      <canvas id="chart_05" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var mun_quantidade = {{ lista_mun_quantidade | tojson }}
+      var municipio = {{ lista_municipio | tojson }}
+
+      var chartOne = {
+        type: 'line',
+        data: {
+          labels: municipio,
+          fontSize: "30",
+          datasets: [
+            {
+              label: 'Municipio',
+              fontSize: "30",
+              backgroundColor: "#1e325c",
+              data: mun_quantidade,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Município',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        },
+      };
+      var ctxOne = document.getElementById('chart_05').getContext('2d');
+      new Chart(ctxOne, chartOne);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+    <h4> Gêneros dos Usuários </h4>
+<canvas id="Chart_06" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var sex_quantidade = {{ lista_sex_quantidade | tojson }}
+      var sexo = {{ lista_sexo | tojson }}
+var ctx = document.getElementById('Chart_06').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: sexo,
+        datasets: [{
+            label: 'Status',
+            backgroundColor: ['#a91a27', '#ecb7b1', '#ffffff'],
+            borderColor:  "#a91a27",
+            data: sex_quantidade
+        }]
+    },
+    options: {}
+});
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+</div>
+
+<div class="row">
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+    <h4> Nível de Escolaridade dos Usuários </h4>
+<canvas id="Chart_07" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var esc_quantidade = {{ lista_esc_quantidade | tojson }}
+      var escolaridade = {{ lista_escolaridade | tojson }}
+var ctx = document.getElementById('Chart_07').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: escolaridade,
+        datasets: [{
+            label: 'Escolaridade',
+            backgroundColor: "#1e325c",
+            borderColor: 'rgb(255, 99, 132)',
+            data: esc_quantidade
+        }]
+    },
+    options: {
+             responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Escolaridade',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        }
+    }
+);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+
+<p>
+<div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
+    <div class="card" >
+      <div class="card-body">
+      <style type="text/css">
+          h2{text-align: center; font-size:28px;}
+      </style>
+      <h4> Quantidade de Manifestações por Mês em {{ ano }}</h4>
+      <canvas id="Chart_08" width="700" height="477"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var mes_quantidade = {{ lista_mes_quantidade | tojson }}
+
+      var chartOne = {
+        type: 'bar',
+        data: {
+          labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+          fontSize: "30",
+          datasets: [
+            {
+              label: 'Mês',
+              fontSize: "30",
+              backgroundColor: "#a91a27",
+              data: mes_quantidade,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'nearest',
+            interesect: true,
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Mês',
+                  fontSize: "15"
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Quantidade',
+                  fontSize: "15"
+                },
+              },
+            ],
+          },
+        },
+      };
+      var ctxOne = document.getElementById('Chart_08').getContext('2d');
+      new Chart(ctxOne, chartOne);
+        </script>
+      </div>
+    </div>
+  </div>
+</p>
+</div>
 {% endblock %}
