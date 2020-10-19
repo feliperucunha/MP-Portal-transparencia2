@@ -56,22 +56,25 @@
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-      <h4> Manifestações por Categorias </h4>
       <canvas id="chart_01" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script>
+     <a id="download01"
+     download="Manifestacao_Categoria.jpg"
+     href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-primary">Download do Gráfico</button>
+     </a>
+     <!-- https://canvasjs.com/javascript-charts/ -->
+    <script type="text/javascript">
       var cat_quantidade = {{ lista_cat_quantidade | tojson }}
       var categoria = {{ lista_categoria | tojson }}
-
       var chartOne = {
         type: 'bar',
         data: {
           labels: categoria,
-          fontSize: "30",
           datasets: [
             {
               label: 'Categorias',
-              fontSize: "30",
+              fontStyle: 'normal',
               backgroundColor: "#1e325c",
               data: cat_quantidade,
               fill: false,
@@ -79,6 +82,13 @@
           ],
         },
         options: {
+		title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Manifestações por Categoria',
+		fontColor: 'black'
+		},
           responsive: true,
           tooltips: {
             mode: 'nearest',
@@ -91,7 +101,8 @@
                 scaleLabel: {
                   display: true,
                   labelString: 'Categoria',
-                  fontSize: "15"
+                  fontSize: "15",
+                  fontColor: 'black'
                 },
               },
             ],
@@ -101,7 +112,8 @@
                 scaleLabel: {
                   display: true,
                   labelString: 'Quantidade',
-                  fontSize: "15"
+                  fontSize: "15",
+                  fontColor: 'black'
                 },
               },
             ],
@@ -110,6 +122,12 @@
       };
       var ctxOne = document.getElementById('chart_01').getContext('2d');
       new Chart(ctxOne, chartOne);
+  //Download Imagem
+  document.getElementById("download01").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("chart_01").toDataURL("image/jpg");
+  var a =  document.getElementById("download01");
+  a.href = url_base64jp;
+});
         </script>
       </div>
     </div>
@@ -123,16 +141,20 @@
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-    <h4> Manifestações por Meios de Acesso </h4>
 <canvas id="Chart_02"width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <a id="download_2"
+        download="Manifestacao_Meio_Acesso.jpg"
+        href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-danger">Download do Gráfico</button>
+     </a>
     <script>
       var ori_quantidade = {{ lista_ori_quantidade | tojson }}
       var origem = {{ lista_origem | tojson }}
-var ctx = document.getElementById('Chart_02').getContext('2d');
-var chart = new Chart(ctx, {
-    type: 'line',
-    data: {
+    var ctx = document.getElementById('Chart_02').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
         labels: origem,
         datasets: [{
             label: 'Meio de Acesso',
@@ -140,8 +162,15 @@ var chart = new Chart(ctx, {
 
             data: ori_quantidade
         }]
-    },
-    options: {
+        },
+        options: {
+        title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Manifestações por Meios de Acesso',
+		fontColor: 'black'
+		},
              responsive: true,
           tooltips: {
             mode: 'nearest',
@@ -169,9 +198,14 @@ var chart = new Chart(ctx, {
               },
             ],
           },
-        }
-    }
-);
+        },
+});
+  //Download Image
+  document.getElementById("download_2").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_02").toDataURL("image/jpg");
+  var a =  document.getElementById("download_2");
+  a.href = url_base64jp;
+  });
         </script>
       </div>
     </div>
@@ -187,9 +221,13 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-    <h4> Situação das Notícias de Fato </h4>
 <canvas id="Chart_03" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <a id="download_3"
+        download="Situacao_Noticia_Fato.jpg"
+        href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-primary">Download do Gráfico</button>
+     </a>
     <script>
       var sta_quantidade = {{ lista_sta_quantidade | tojson }}
       var Status = {{ lista_status | tojson }}
@@ -205,8 +243,22 @@ var chart = new Chart(ctx, {
             data: sta_quantidade
         }]
     },
-    options: {}
+    options: {
+        	title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Situação de Notícia de Fato',
+		fontColor: 'black'
+		},
+    }
 });
+  //Download Image
+  document.getElementById("download_3").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_03").toDataURL("image/jpg");
+  var a =  document.getElementById("download_3");
+  a.href = url_base64jp;
+  });
 </script>
       </div>
     </div>
@@ -222,9 +274,13 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-    <h4> Manifestações por Assunto </h4>
 <canvas id="Chart_04" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <a id="download_04"
+        download="Manifestacao_Assunto.jpg"
+        href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-danger">Download do Gráfico</button>
+     </a>
     <script>
       var ass_quantidade = {{ lista_ass_quantidade | tojson }}
       var assunto = {{ lista_assunto | tojson }}
@@ -241,6 +297,13 @@ var chart = new Chart(ctx, {
         }]
     },
     options: {
+    	title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Manifestações por Assunto',
+		fontColor: 'black'
+		},
              responsive: true,
           tooltips: {
             mode: 'nearest',
@@ -271,6 +334,12 @@ var chart = new Chart(ctx, {
         }
     }
 );
+  //Download Image
+  document.getElementById("download_04").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_04").toDataURL("image/jpg");
+  var a =  document.getElementById("download_04");
+  a.href = url_base64jp;
+  });
         </script>
       </div>
     </div>
@@ -279,6 +348,7 @@ var chart = new Chart(ctx, {
 </div>
 
 <div class="row">
+
 <p>
 <div class="col-sm-6" style="margin-top:4px; margin-bottom:1px;">
     <div class="card" >
@@ -286,22 +356,24 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-      <h4> Manifestações por Munucípios </h4>
       <canvas id="chart_05" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script>
+     <a id="download_05"
+     download="Manifestacao_Municipio.jpg"
+     href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-primary">Download do Gráfico</button>
+     </a>
+    <script type="text/javascript">
       var mun_quantidade = {{ lista_mun_quantidade | tojson }}
       var municipio = {{ lista_municipio | tojson }}
-
       var chartOne = {
         type: 'line',
         data: {
           labels: municipio,
-          fontSize: "30",
           datasets: [
             {
-              label: 'Municipio',
-              fontSize: "30",
+              label: 'Categorias',
+              fontStyle: 'normal',
               backgroundColor: "#1e325c",
               data: mun_quantidade,
               fill: false,
@@ -309,6 +381,13 @@ var chart = new Chart(ctx, {
           ],
         },
         options: {
+		title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Manifestações por Município',
+		fontColor: 'black'
+		},
           responsive: true,
           tooltips: {
             mode: 'nearest',
@@ -320,8 +399,9 @@ var chart = new Chart(ctx, {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: 'Município',
-                  fontSize: "15"
+                  labelString: 'Municipio',
+                  fontSize: "15",
+                  fontColor: 'black'
                 },
               },
             ],
@@ -331,7 +411,8 @@ var chart = new Chart(ctx, {
                 scaleLabel: {
                   display: true,
                   labelString: 'Quantidade',
-                  fontSize: "15"
+                  fontSize: "15",
+                  fontColor: 'black'
                 },
               },
             ],
@@ -340,6 +421,12 @@ var chart = new Chart(ctx, {
       };
       var ctxOne = document.getElementById('chart_05').getContext('2d');
       new Chart(ctxOne, chartOne);
+  //Download Imagem
+  document.getElementById("download_05").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("chart_05").toDataURL("image/jpg");
+  var a =  document.getElementById("download_05");
+  a.href = url_base64jp;
+});
         </script>
       </div>
     </div>
@@ -353,9 +440,13 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-    <h4> Gêneros dos Usuários </h4>
 <canvas id="Chart_06" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <a id="download_6"
+        download="Genero_Usuario.jpg"
+        href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-danger">Download do Gráfico</button>
+     </a>
     <script>
       var sex_quantidade = {{ lista_sex_quantidade | tojson }}
       var sexo = {{ lista_sexo | tojson }}
@@ -371,8 +462,22 @@ var chart = new Chart(ctx, {
             data: sex_quantidade
         }]
     },
-    options: {}
+    options: {
+        title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Gêneros dos Usuários',
+		fontColor: 'black'
+		},
+    }
 });
+  //Download Image
+  document.getElementById("download_6").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_06").toDataURL("image/jpg");
+  var a =  document.getElementById("download_6");
+  a.href = url_base64jp;
+  });
         </script>
       </div>
     </div>
@@ -388,14 +493,18 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-    <h4> Nível de Escolaridade dos Usuários </h4>
 <canvas id="Chart_07" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+     <a id="download_07"
+        download="Nivel_Escolaridade_Usuario.jpg"
+        href="" title="Download do Gráfico">
+      <button type="button" class="btn btn-outline-primary">Download do Gráfico</button>
+     </a>
     <script>
       var esc_quantidade = {{ lista_esc_quantidade | tojson }}
       var escolaridade = {{ lista_escolaridade | tojson }}
-var ctx = document.getElementById('Chart_07').getContext('2d');
-var chart = new Chart(ctx, {
+    var ctx = document.getElementById('Chart_07').getContext('2d');
+    var chart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
         labels: escolaridade,
@@ -407,7 +516,14 @@ var chart = new Chart(ctx, {
         }]
     },
     options: {
-             responsive: true,
+        title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Nível de Escolaridade do Usuário',
+		fontColor: 'black'
+		},
+        responsive: true,
           tooltips: {
             mode: 'nearest',
             interesect: true,
@@ -437,6 +553,12 @@ var chart = new Chart(ctx, {
         }
     }
 );
+  //Download Image
+  document.getElementById("download_07").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_07").toDataURL("image/jpg");
+  var a =  document.getElementById("download_07");
+  a.href = url_base64jp;
+});
         </script>
       </div>
     </div>
@@ -450,12 +572,16 @@ var chart = new Chart(ctx, {
       <style type="text/css">
           h2{text-align: center; font-size:28px;}
       </style>
-      <h4> Quantidade de Manifestações por Mês em {{ ano }}</h4>
       <canvas id="Chart_08" width="700" height="477"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+     <a id="download_8"
+        download="Manifestacao_Mes.jpg"
+        href="" title="Download do Gráfico">
+     <button type="button" class="btn btn-outline-danger">Download do Gráfico</button>
+     </a>
     <script>
-      var mes_quantidade = {{ lista_mes_quantidade | tojson }}
-
+      var ano_max_qtde = {{ lista_ano_max_qtde | tojson }}
+      var ano_ant_qtde = {{ lista_ano_ant_qtde | tojson }}
       var chartOne = {
         type: 'bar',
         data: {
@@ -463,15 +589,29 @@ var chart = new Chart(ctx, {
           fontSize: "30",
           datasets: [
             {
-              label: 'Mês',
+              label: '{{ano_max-1}}',
               fontSize: "30",
               backgroundColor: "#a91a27",
-              data: mes_quantidade,
+              data: ano_ant_qtde,
+              fill: false,
+            },
+            {
+              label: '{{ano_max}}',
+              fontSize: "30",
+              backgroundColor: "#1e325c",
+              data: ano_max_qtde,
               fill: false,
             },
           ],
         },
         options: {
+        title:{
+		display: true,
+		fontSize: '20',
+		fontStyle: 'normal',
+		text: 'Quantidade de Manifestações - Anos {{ano_max-1}} e {{ano_max}}',
+		fontColor: 'black'
+		},
           responsive: true,
           tooltips: {
             mode: 'nearest',
@@ -503,10 +643,19 @@ var chart = new Chart(ctx, {
       };
       var ctxOne = document.getElementById('Chart_08').getContext('2d');
       new Chart(ctxOne, chartOne);
-        </script>
+  //Download Image
+  document.getElementById("download_8").addEventListener('click', function(){
+  var url_base64jp = document.getElementById("Chart_08").toDataURL("image/jpg");
+  var a =  document.getElementById("download_8");
+  a.href = url_base64jp;
+});
+</script>
       </div>
     </div>
   </div>
-</p>
 </div>
+</p>
+
+</div>
+
 {% endblock %}

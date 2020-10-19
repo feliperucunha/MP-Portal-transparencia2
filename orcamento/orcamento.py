@@ -21,7 +21,7 @@ def ReceitasProprias():
     Ano_max_rp = df_rp_Ano_Mes_Max.Ano.max()
     Mes_max_rp = df_rp_Ano_Mes_Max.Mês.max()
   
-    #----------Criar grafico-------------------------------------------------#
+    #----------inicio dos dados do grafico-------------------------------------------------#
     # Criação de um DF com apenas informação dos meses e os dois últimos anos
     df_ano_max = df[(df['Mês'] == Mes_max_rp) & (df['Ano'] == Ano_max_rp) &
                     ((df['Objeto (a)'] == 'Crédito Orçamentário Liberado') |
@@ -32,10 +32,7 @@ def ReceitasProprias():
     # Criar uma lista com os dados anteriores
     lista_ano_anterior = df_ano_ant.values.tolist()
     lista_ano_atual = df_ano_max.values.tolist()
-    
-
-
-    # -------------------------------------------------------------------------------------------------------------------------#
+    # --------------------------Fim dos dados do grafico-----------------------------------#
     df = df[(df['Mês'] == Mes_max_rp) & (df['Ano'] == Ano_max_rp)][['Ano','Mês','Objeto (a)', 'Valores Previstos (b)', 'Jan', 'Fev',	'Mar',	'Abr',	'Mai',	'Jun',	'Jul',	'Ago',	'Set',	'Out',	'Nov',	'Dez', 'Total']] #dados filtrados
  #Paginação: https://pythonhosted.org/Flask-paginate/ e #https://stackoverflow.com/questions/34952501/flask-pagination-links-improperly-formatted
     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -47,10 +44,23 @@ def ReceitasProprias():
     if form.validate_on_submit():
         mes = form.mes.data
         ano = form.ano.data
+        ano_graf = int(ano)
         df = pd.DataFrame(json_data) #todos os dados
+        # ----------inicio dos dados do grafico-------------------------------------------------#
+        # Criação de um DF com apenas informação dos meses e os dois últimos anos
+        df_ano_max = df[(df['Mês'] == int(mes)) & (df['Ano'] == int(ano)) &
+                        ((df['Objeto (a)'] == 'Crédito Orçamentário Liberado') |
+                         (df['Objeto (a)'] == 'Receitas Próprias'))].sum().iloc[5:17]
+        df_ano_ant = df[(df['Mês'] == 12) & (df['Ano'] == int(ano) - 1) &
+                        ((df['Objeto (a)'] == 'Crédito Orçamentário Liberado') |
+                         (df['Objeto (a)'] == 'Receitas Próprias'))].sum().iloc[5:17]
+        # Criar uma lista com os dados anteriores
+        lista_ano_anterior = df_ano_ant.values.tolist()
+        lista_ano_atual = df_ano_max.values.tolist()
+        # --------------------------Fim dos dados do grafico-----------------------------------#
         df = df[(df['Mês'] == int(mes)) & (df['Ano']==int(ano))][['Ano','Mês','Objeto (a)', 'Valores Previstos (b)', 'Jan',	'Fev',	'Mar',	'Abr',	'Mai',	'Jun',	'Jul',	'Ago',	'Set',	'Out',	'Nov',	'Dez', 'Total']] #dados filtrados
         #return render_template('main_orcamento.html',tables=[df.to_html(classes='table table-fluid', table_id="myTable")], form = form, pagination=pagination)
-        return render_template('main_orcamento_rpro.html', Ano= Ano_max_rp, tables=df[(page-1)*PER_PAGE:page*PER_PAGE].to_html(classes='table table-fluid', table_id="myTable2"),
+        return render_template('main_orcamento_rpro.html', Ano= ano_graf, tables=df[(page-1)*PER_PAGE:page*PER_PAGE].to_html(classes='table table-fluid', table_id="myTable2"),
       titles = 'Receitas Próprias', form = form, pagination=pagination, lista_ano_anterior=lista_ano_anterior, lista_ano_atual=lista_ano_atual)
 
     return render_template('main_orcamento_rpro.html', Ano = Ano_max_rp, tables=df[(page-1)*PER_PAGE:page*PER_PAGE].to_html(classes='table table-striped', table_id="myTable2"),
